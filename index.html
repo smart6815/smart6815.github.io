@@ -1,133 +1,152 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>John Doe — Senior React Developer</title>
-<meta name="description" content="John Doe — Senior React & Full-stack Engineer. React, Next.js, Node, Cloud.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7; --glass: rgba(255,255,255,0.04);
-  --maxw:1100px;
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#e6eef6;background:linear-gradient(180deg,#071021 0%, #071827 60%);-webkit-font-smoothing:antialiased}
-.container{max-width:var(--maxw);margin:40px auto;padding:28px;}
-.header{display:flex;align-items:center;gap:20px;margin-bottom:24px}
-.avatar{width:96px;height:96px;border-radius:14px;flex:0 0 96px;background:linear-gradient(135deg,#1f2937,#111827);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent);font-size:28px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-.header h1{margin:0;font-size:28px;line-height:1;color:#fff}
-.header p{margin:2px 0 0;color:var(--muted);font-size:14px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>John Doe — Portfolio</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --text:#e6eef8;
+      --card:#142032;
+      --accent:#7c3aed;
+      --muted:#9aa4b2;
+      --radius:14px;
+      --shadow:0 8px 30px rgba(0,0,0,0.35);
+    }
+    [data-theme="light"]{
+      --bg:#f6f6f6;--text:#222;--card:white;--accent:#7c3aed;--muted:#555;--shadow:0 4px 20px rgba(0,0,0,0.1);
+    }
+    [data-theme="gradient"]{
+      --bg:linear-gradient(180deg,#1b2540,#0f1724);
+      --card:rgba(255,255,255,0.05);
+      --accent:#f97316;
+      --text:#eef1f7;
+    }
+    [data-theme="minimal"]{
+      --bg:white;--text:#111;--card:#fafafa;--accent:#111;--muted:#555;
+    }
+    body{
+      margin:0;padding:40px;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);transition:0.3s ease;
+    }
+    .container{
+      max-width:900px;margin:auto;background:var(--card);padding:40px;border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(8px)
+    }
+    nav{
+      display:flex;gap:20px;margin-bottom:30px
+    }
+    nav a{
+      color:var(--muted);text-decoration:none;font-weight:600;transition:0.2s
+    }
+    nav a:hover{color:var(--accent)}
+    header{text-align:center;margin-bottom:40px}
+    header img{
+      width:140px;height:140px;border-radius:100px;object-fit:cover;margin:20px 0;box-shadow:var(--shadow)
+    }
+    h1{font-size:34px;margin:0}
+    h2{margin-top:40px;font-size:24px;border-bottom:2px solid var(--accent);padding-bottom:6px}
+    .skills span{
+      display:inline-block;background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:6px;margin:4px;font-size:14px;border:1px solid rgba(255,255,255,0.08)
+    }
+    .job{margin-bottom:20px}
+    .job-title{font-weight:700;font-size:17px}
+    .job-dates{font-size:14px;color:var(--muted)}
+    .theme-buttons{display:flex;gap:10px;margin-bottom:20px}
+    .theme-buttons button{
+      padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:600;cursor:pointer;transition:0.2s
+    }
+    .theme-buttons button:hover{opacity:0.8}
 
-/* grid */
-.grid{display:grid;grid-template-columns:1fr 340px;gap:22px}
-.card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-
-/* hero summary */
-.summary{font-size:15px;color:#cfe8ff;line-height:1.6}
-.stats{display:flex;gap:12px;margin-top:14px}
-.stat{background:var(--glass);padding:10px;border-radius:10px;font-weight:600;color:#dffcf0;font-size:13px}
-
-/* sections */
-.section{margin-top:18px}
-.section h2{margin:0 0 12px;font-size:16px;color:#dff0ff}
-.list{margin:0;padding:0;list-style:none}
-.item{padding:12px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));margin-bottom:10px;border:1px solid rgba(255,255,255,0.02)}
-
-/* skills */
-.tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.02)}
-
-/* contact */
-.contact a{color:var(--accent);text-decoration:none;font-weight:600}
-
-/* responsive */
-@media (max-width:980px){.grid{grid-template-columns:1fr} .header{gap:14px} .avatar{width:72px;height:72px;font-size:22px} .container{margin:18px;padding:18px}}
-</style>
+    /* animations */
+    .fade{animation:fadeIn 0.5s ease}
+    @keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+  </style>
 </head>
 <body>
-<div class="container">
-  <header class="header" role="banner">
-    <div class="avatar">JD</div>
-    <div>
+  <div class="container">
+    <header>
+      <img src="me.png" alt="My Photo" />
       <h1>John Doe</h1>
-      <p>Senior React Developer · Full‑Stack Engineer · Cloud & API</p>
-      <div class="stats" aria-hidden="true">
-        <div class="stat">8+ years experience</div>
-        <div class="stat">React · TypeScript · Node</div>
-      </div>
+      <p>Senior React Developer | Full-Stack Engineer</p>
+      <p>Email: softwaredevloper1996310@gmail.com</p>
+    </header>
+
+    <h2>Summary</h2>
+    <p>Greetings! I've worked in software engineering throughout my 10+ year programming journey. I am a senior full-stack software engineer with over 8 years of experience in freelancing, part-time, and contract roles. I focus on Web / Mobile / Desktop development, building software with an innovative and creative architectural mindset.</p>
+
+    <h2>Skills</h2>
+    <div class="skills">
+      <span>React</span>
+      <span>Vue</span>
+      <span>Next.js</span>
+      <span>Nuxt</span>
+      <span>Node / Express</span>
+      <span>Laravel</span>
+      <span>Python / Django</span>
+      <span>Docker</span>
+      <span>Google Cloud</span>
+      <span>CI/CD</span>
+      <span>AWS / Elastic Beanstalk</span>
+      <span>Firebase</span>
+      <span>PHP</span>
+      <span>C#</span>
+      <span>GoLang</span>
+      <span>JavaScript</span>
+      <span>TypeScript</span>
+      <span>HTML/CSS</span>
+      <span>MSSQL</span>
+      <span>Ruby on Rails</span>
+      <span>NestJS</span>
+      <span>CodeIgniter</span>
+      <span>Web3</span>
+      <span>AWS Amplify</span>
     </div>
-  </header>
 
-  <main class="grid" role="main">
-    <section class="card">
-      <div class="summary">
-        <strong>Summary</strong>
-        <p>Senior full-stack engineer with a strong focus on React, Next.js, scalable Node.js services, and cloud deployments. I build reliable, maintainable software that solves real business problems and ships quickly.</p>
-      </div>
+    <h2>Experience</h2>
 
-      <div class="section">
-        <h2>Key Achievements</h2>
-        <ul class="list">
-          <li class="item">Optimized front-end to improve efficiency by 30% through reusable components.</li>
-          <li class="item">Implemented CI/CD on AWS to achieve 100% uptime for critical services.</li>
-          <li class="item">Built chat/engagement features increasing user metrics by 25%.</li>
-        </ul>
-      </div>
+    <div class="job">
+      <div class="job-title">Senior React Developer — Memories.com.au</div>
+      <div class="job-dates">11/2019 – 08/2020</div>
+      <ul>
+        <li>Built full front-end pages from scratch</li>
+        <li>Created reusable components</li>
+        <li>Developed backend REST API</li>
+      </ul>
+    </div>
 
-      <div class="section">
-        <h2>Experience Highlights</h2>
-        <div class="list">
-          <div class="item">
-            <strong>Senior Frontend Engineer</strong> — Modern SaaS Co.<br><small class="muted">React, TypeScript, component libraries</small>
-            <p>Led UI replatforming and built 50+ responsive components used across product.</p>
-          </div>
-          <div class="item">
-            <strong>Full‑Stack Engineer</strong> — Cloud Services Inc.<br><small>Node.js, PostgreSQL, AWS</small>
-            <p>Designed APIs and data models for high-throughput workflows.</p>
-          </div>
-        </div>
-      </div>
+    <div class="job">
+      <div class="job-title">Senior Backend Developer — Retroced</div>
+      <div class="job-dates">08/2020 – 10/2022</div>
+      <ul>
+        <li>Implemented real-time chat using Firebase</li>
+        <li>Firebase Authentication & Firestore</li>
+        <li>MEVN stack development</li>
+      </ul>
+    </div>
 
-      <div class="section">
-        <h2>Projects</h2>
-        <ul class="list">
-          <li class="item"><strong>Project A</strong> — Marketplace platform with real-time updates and payments.</li>
-          <li class="item"><strong>Project B</strong> — Internal analytics dashboard for product ops.</li>
-        </ul>
-      </div>
+    <div class="job">
+      <div class="job-title">Mobile & Web Developer — Atomic Task</div>
+      <div class="job-dates">10/2022 – 11/2023</div>
+      <ul>
+        <li>Real-time chat using Firebase RDB</li>
+        <li>Auth & Firestore integrations</li>
+        <li>MEVN stack projects</li>
+      </ul>
+    </div>
 
-    </section>
+    <div class="job">
+      <div class="job-title">PHP + GraphQL Backend Engineer — BatteryXchange</div>
+      <div class="job-dates">11/2023 – 04/2025</div>
+      <ul>
+        <li>Built admin panel using NextJS</li>
+        <li>Created Docker dev environment</li>
+        <li>Deployed backend to AWS EC2 via CI/CD</li>
+      </ul>
+    </div>
 
-    <aside class="card">
-      <div class="section contact">
-        <h2>Contact</h2>
-        <p><a href="mailto:softwaredevloper1996310@gmail.com">softwaredevloper1996310@gmail.com</a></p>
-        <p><a href="https://atomic-task.com/" target="_blank" rel="noopener">atomic-task.com</a></p>
-      </div>
-
-      <div class="section">
-        <h2>Skills</h2>
-        <div class="tags">
-          <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Prisma</span><span class="tag">Postgres</span><span class="tag">AWS</span>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2>Education</h2>
-        <div class="item">B.Sc. in Computer Science — University</div>
-      </div>
-
-      <div class="section">
-        <h2>Availability</h2>
-        <div class="item">Open to full-time & contract roles. Remote-friendly.</div>
-      </div>
-    </aside>
-  </main>
-
-  <footer style="text-align:center;color:var(--muted);margin-top:22px;font-size:13px">
-    © John Doe — Built with care · <span style="color:var(--accent)">Contact: </span>softwaredevloper1996310@gmail.com
-  </footer>
-</div>
+    <h2>Education</h2>
+    <p><strong>University of California, Los Angeles (UCLA)</strong><br>
+    Bachelor of Science in Electrical Engineering</p>
+  </div>
 </body>
 </html>
